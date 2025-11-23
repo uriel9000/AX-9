@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AX Security Solutions: Professional security guard services, mobile patrols and 24/7 protection.">
+    <meta name="theme-color" content="#0A2463">
+    <title>AX Security Solutions</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* =========================================
+           1. CSS VARIABLES & RESET
+           ========================================= */
+        :root {
+            /* Branding Colors */
+            --primary: #000000;
+            --primary-dark: #0D0D0D;
+            --accent: #B87333;
+            --accent-hover: #D4AF37;
+            --text-dark: #CCCCCC;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --bg-light: #f8f9fa;
+
+            /* Typography */
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+
+            /* Spacing & Layout */
+            --container-width: 1200px;
+            --section-padding: 5rem 1.5rem;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* =========================================
+           2. UTILITY CLASSES
+           ========================================= */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .text-center { text-align: center; }
+        .text-accent { color: var(--accent); }
+        .bg-light { background-color: var(--bg-light); }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        /* Responsive Columns */
+        .cols-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .cols-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .cols-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(193, 41, 46, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           3. HEADER & NAVIGATION
+           ========================================= */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--primary);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-head);
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        .logo svg {
+            width: 36px;
+            height: 36px;
+            fill: var(--white);
+        }
+
+        /* Desktop Menu */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--white);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        /* Mobile Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--white);
+            transition: var(--transition);
+        }
+
+        /* =========================================
+           4. SECTIONS
+           ========================================= */
+        
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(160, 166, 181, 0.9), rgba(172, 176, 186, 0.8)),
+                        url('https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?auto=format&fit=crop&q=80&w=2073') center/cover;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            padding-top: 80px; /* Offset fixed header */
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* General Section Styles */
+        section { padding: var(--section-padding); }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+        }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .section-header p { color: var(--text-light); font-size: 1.1rem; }
+
+        /* Services Cards */
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-top-color: var(--accent);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .service-card p { color: var(--text-light); margin-bottom: 1.5rem; flex-grow: 1; }
+        .learn-more { color: var(--accent); font-weight: 700; display: inline-flex; align-items: center; gap: 5px; }
+
+        /* Why Choose Us (Flex Layout) */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .feature-item {
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+        .feature-item h3 { margin-bottom: 0.5rem; font-size: 1.25rem; }
+        .feature-item p { color: var(--text-light); }
+
+        .visual-box {
+            background-color: #000000;
+            padding: 4rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid #d1d9e6;
+        }
+
+        /* Testimonials */
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+        }
+        .testimonial-text { font-size: 1.2rem; font-style: italic; color: #444; margin-bottom: 1.5rem; }
+        .author { font-weight: 700; color: var(--primary); display: block; }
+        .role { color: var(--text-light); font-size: 0.9rem; }
+        
+        .carousel-controls {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .control-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .control-btn:hover { background: var(--primary); color: var(--white); }
+
+        /* Lead Form Section */
+        .lead-section {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        .lead-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .form-wrapper {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group { margin-bottom: 1.25rem; }
+        .form-label { display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 600; font-size: 0.9rem; }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(193, 41, 46, 0.1);
+        }
+
+        .trap-field { position: absolute; left: -9999px; opacity: 0; }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary);
+            color: #b0b8c5;
+            padding: 4rem 1.5rem 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 3rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
+        }
+
+        .footer h4 { color: var(--white); margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a:hover { color: var(--white); padding-left: 5px; }
+        
+        .footer-bottom {
+            border-top: 1px solid rgb(10, 6, 2);
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* =========================================
+           5. MEDIA QUERIES (Mobile Response)
+           ========================================= */
+        @media (max-width: 992px) {
+            .lead-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; z-index: 1001; }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                flex-direction: column;
+                background-color: var(--primary);
+                width: 80%;
+                height: 100vh;
+                padding-top: 5rem;
+                transition: 0.3s;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active { left: 0; }
+            .hero-btns { flex-direction: column; width: 100%; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="container nav-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <img src="axsecurity.jpeg" alt="AX Security Solutions Logo" style="width:85px;height: 100px;object-fit:contain;display:block;">
+                <span style="color: #B87333;">AX SECURITY Solutions</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#about" class="nav-link">Why Us</a></li>
+                    <li><a href="#contact" class="btn btn-primary">Get Quote</a></li>
+                </ul>
+            </nav>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Professional Security Guard Services</h1>
+                <p>Protecting your property and people with 24/7 manned guarding, mobile patrols and rapid response units. Licensed and ready to serve.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn btn-primary">Hire Security</a>
+                    <a href="#services" class="btn btn-outline">Our Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Our Expertise</h2>
+                <p>Comprehensive physical security solutions tailored to your specific risks.</p>
+            </div>
+            
+            <div class="grid cols-4">
+                <!-- Card 1 -->
+                <div class="service-card fade-in">
+                    <i class="fas fa-user-shield service-icon"></i>
+                    <h3>Manned Guarding</h3>
+                    <p>Uniformed officers for retail, corporate and residential properties. Visible deterrence and concierge duties.</p>
+                    <a href="#contact" class="learn-more">Get Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <!-- Card 2 -->
+                <div class="service-card fade-in">
+                    <i class="fas fa-car-side service-icon"></i>
+                    <h3>Mobile Patrols</h3>
+                    <p>GPS-tracked vehicle patrols inspecting perimeters at random intervals to prevent criminal activity.</p>
+                    <a href="#contact" class="learn-more">Get Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <!-- Card 3 -->
+                <div class="service-card fade-in">
+                    <i class="fas fa-warehouse service-icon"></i>
+                    <h3>Industrial Security</h3>
+                    <p>Access control for warehouses, factories and construction sites to prevent theft and vandalism.</p>
+                    <a href="#contact" class="learn-more">Get Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <!-- Card 4 -->
+                <div class="service-card fade-in">
+                    <i class="fas fa-calendar-check service-icon"></i>
+                    <h3>Event Security</h3>
+                    <p>Crowd control and VIP protection for corporate events, private parties and public gatherings.</p>
+                    <a href="#contact" class="learn-more">Get Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Why Us -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="content-side fade-in">
+                    <h2 style="margin-bottom: 1.5rem;">Why Hire AX Security Solutions?</h2>
+                    <p class="mb-2">We don't just observe; we protect. Our officers undergo rigorous training in de-escalation, emergency response and first aid.</p>
+                    
+                    <div class="feature-item">
+                        <h3><i class="fas fa-certificate text-accent"></i> Licensed & Vetted</h3>
+                        <p>Every officer passes zambia police checks and holds security identity Cards.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><i class="fas fa-bolt text-accent"></i> 15-Minute Response</h3>
+                        <p>Our mobile units boast the fastest alarm response times in town.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><i class="fas fa-mobile-alt text-accent"></i> Digital Reports</h3>
+                        <p>Receive daily activity reports (DARs) instantly via email.</p>
+                    </div>
+                </div>
+                
+                <div class="visual-side fade-in">
+                    <div class="visual-box">
+                        <img src="axsecurity.jpeg" alt="AX Security Solutions Logo" style="width:120px;height:200px;object-fit:contain;display:block;margin:0 auto;opacity:0.95;">
+                        <h3 style="margin-top: 1rem;" style="color: #B87333;">AX Security Solutions Standard</h3>
+                        <p>Deter. Detect. Defend.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Client Feedback</h2>
+            </div>
+            
+            <div class="testimonial-container fade-in">
+                <div id="testimonial-content">
+                    <p class="testimonial-text">"The mobile patrol team is fantastic. They caught a break-in attempt at our Store last week and stopped it before any damage was done."</p>
+                    <span class="author">Mr kangwa</span>
+                    <span class="role">Director, Zanetec Solutions</span>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="control-btn" onclick="prevSlide()"><i class="fas fa-arrow-left"></i></button>
+                    <button class="control-btn" onclick="nextSlide()"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Form Section -->
+    <section id="contact" class="lead-section">
+        <div class="container">
+            <div class="lead-grid">
+                <div class="lead-text fade-in">
+                    <h2 style="color:white; margin-bottom:1rem;">Secure Your Property.</h2>
+                    <p style="opacity: 0.9; margin-bottom: 2rem;">Fill out the form to request a free security assessment. We will identify vulnerabilities and propose a custom guard plan.</p>
+                    <ul>
+                        <li class="mb-1"><i class="fas fa-check text-accent"></i> short/Long-Term Contracts</li>
+                        <li class="mb-1"><i class="fas fa-check text-accent"></i> 24/7 Dispatch Support</li>
+                        <li class="mb-1"><i class="fas fa-check text-accent"></i> Fully compliant with the law</li>
+                    </ul>
+                </div>
+
+                <div class="form-wrapper fade-in">
+                    <form id="leadForm">
+                        <!-- Honeypot -->
+                        <div class="trap-field">
+                            <label>Ignore this</label>
+                            <input type="text" id="website_trap" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name</label>
+                            <input class="form-input" type="text" id="name" required placeholder="John Smith">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="company">Company / Property</label>
+                            <input class="form-input" type="text" id="company" required placeholder="Business Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">Work Email</label>
+                            <input class="form-input" type="email" id="email" required placeholder="email@company.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="service">Service Needed</label>
+                            <select class="form-select" id="service">
+                                <option>Manned Guarding</option>
+                                <option>Mobile Patrol</option>
+                                <option>Event Security</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">Request Assessment</button>
+                        <div id="formStatus" style="margin-top: 1rem; text-align: center; font-weight: 700;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 1rem;">
+                    <img src="axsecurity.jpeg" alt="AX Security Solutions Logo" style="width:60px;height:auto;object-fit:contain;display:block;">
+                    <span style="color: #B87333;">AX Security Solutions</span>
+                </div>
+                <p>Professional security guard services dedicated to safety, integrity and rapid response.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Armed Guards</a></li>
+                    <li><a href="#services">Unarmed Guards</a></li>
+                    <li><a href="#services">Vehicle Patrols</a></li>
+                    <li><a href="#contact">Get a Quote</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Contact HQ</h4>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> mine area kabwe central zambia</li>
+                    <li><i class="fas fa-phone"></i> +26098000000</li>
+                    <li><i class="fas fa-envelope"></i> info@axsecuritysolutions.co.zm</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 AX Security Solutions. Licensed. Privacy Policy.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            /* =========================================
+               1. MOBILE NAVIGATION
+               ========================================= */
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                // Update Accessibility attribute
+                const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+                hamburger.setAttribute('aria-expanded', !expanded);
+            }
+
+            hamburger.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            /* =========================================
+               2. SCROLL ANIMATIONS (IntersectionObserver)
+               ========================================= */
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            /* =========================================
+               3. TESTIMONIAL SLIDER (Vanilla JS)
+               ========================================= */
+            const testimonials = [
+                {
+                    text: "\"The mobile patrol team is fantastic. They caught a break-in attempt at our store last week and stopped it before any damage was done.\"",
+                    author: "John Kangwa",
+                    role: "Director, Zanetec Solutions"
+                },
+                {
+                    text: "\"Professional, sharp and always on time. AX security Solutions transformed the atmosphere of our residential complex and work environment.\"",
+                    author: "Mr Chris ",
+                    role: "Director, Atorx-9 mining company"
+                },
+                {
+                    text: "\"We use them for all our corporate events. Their crowd control is subtle but effective. Highly recommended.\"",
+                    author: "chibesa chabala",
+                    role: "Event Director, zambizia events"
+                }
+            ];
+
+            let currentIndex = 0;
+            const contentDiv = document.getElementById('testimonial-content');
+
+            window.updateSlide = function() {
+                const t = testimonials[currentIndex];
+                // Simple fade effect
+                contentDiv.style.opacity = 0;
+                setTimeout(() => {
+                    contentDiv.innerHTML = `
+                        <p class="testimonial-text">${t.text}</p>
+                        <span class="author">${t.author}</span>
+                        <span class="role">${t.role}</span>
+                    `;
+                    contentDiv.style.opacity = 1;
+                }, 300);
+            };
+
+            window.nextSlide = function() {
+                currentIndex = (currentIndex + 1) % testimonials.length;
+                updateSlide();
+            };
+
+            window.prevSlide = function() {
+                currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+                updateSlide();
+            };
+
+            /* =========================================
+               4. SECURITY: SILENT ROUTE GUARD
+               ========================================= */
+            const silentGuard = () => {
+                const restricted = ['#officer-portal', '#admin', '#logs'];
+                if (restricted.includes(window.location.hash)) {
+                    history.replaceState(null, null, ' ');
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                }
+            };
+            window.addEventListener('hashchange', silentGuard);
+            silentGuard(); // Run on load
+
+            /* =========================================
+               5. FORM HANDLING & HONEYPOT
+               ========================================= */
+            const form = document.getElementById('leadForm');
+            const status = document.getElementById('formStatus');
+            const btn = document.getElementById('submitBtn');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Honeypot Check
+                if(document.getElementById('website_trap').value !== '') return;
+
+                const name = document.getElementById('name').value;
+
+                // Loading State
+                btn.disabled = true;
+                btn.textContent = "Processing...";
+
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.textContent = "Request Assessment";
+                    form.reset();
+                    
+                    // Secure Feedback
+                    status.style.color = "var(--white)";
+                    status.textContent = `Thanks, ${name}. We will contact you shortly.`;
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
